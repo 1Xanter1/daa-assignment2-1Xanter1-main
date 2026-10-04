@@ -1,4 +1,5 @@
 public class IntLinkedListQueue implements IntQueue{
+    IntLinkedList queue = new IntLinkedList();
 
     public IntLinkedListQueue() {
         // creates an empty queue
@@ -7,36 +8,37 @@ public class IntLinkedListQueue implements IntQueue{
     @Override
     public void enqueue(int value) {
         // adds a value to queue
+        queue.add(value);
     }
 
     @Override
     public int dequeue() {
         // removes, and returns a value from queue
-        return 0;
+        return queue.remove(0);
     }
 
     @Override
     public int peek() {
         // returns a value from queue
-        return 0;
+        return queue.get(0);
     }
 
     @Override
     public int size() {
         // return size of queue
-        return 0;
+        return queue.size();
     }
 
     @Override
     public boolean isEmpty() {
         // returns whether queue is empty
-        return false;
+        return queue.isEmpty();
     }
 
     @Override
     public String toString() {
         // "[]" for empty queue
         // "[7, 8, 6]" for queue containing elements: 7, 8, 6. (head-first)
-        return super.toString();
+        return queue.toString();
     }
 }
