@@ -3,52 +3,101 @@ public class IntMinHeapTopDown implements IntQueue{
     private IntArray heap;
     public IntMinHeapTopDown() {
         // creates an empty MinHeap
+        heap = new IntArray();
     }
 
     public IntMinHeapTopDown(int [] values) {
         // builds a MinHeap using top-down approach from an array of values
+        heap = new IntArray();
+        for (int i = 0; i < values.length; i++) {
+            enqueue(values[i]);
+        }
     }
 
     @Override
     public void enqueue(int value) {
         // insert into heap
-        if (isEmpty()){
-            heap.add(value);
-        } else{
-            heap.add(value);
-            int child = heap.size()-1;
-            while (child > 0 && heap.get(child-1)){
+        heap.add(value);
 
+        int i = heap.size()-1;
+
+        while (i > 0 && heap.get((i-1)/2)>value){
+            int parent = heap.get((i-1)/2);
+
+            if (heap.get(parent) <= heap.get(i)) {
+                break;
             }
+
+            heap.set((i-1)/2,value);
+            heap.set(i,parent);
+            i = parent;
         }
     }
 
     @Override
     public int dequeue() {
         // remove and return the minimum from the heap
-        return 0;
+        if (isEmpty()) {
+            throw new IndexOutOfBoundsException();
+        }
+        int min = heap.get(0);
+
+        int last = heap.get(heap.size() - 1);
+        heap.set(0, last);
+
+        heap.remove(heap.size() - 1);
+
+        int i = 0;
+
+        while (true) {
+            int left = 2 * i + 1;
+            int right = 2 * i + 2;
+            int smallest = i;
+
+            if (left < heap.size() && heap.get(left) < heap.get(smallest)) {
+                smallest = left;
+            }
+
+            if (right < heap.size() && heap.get(right) < heap.get(smallest)) {
+                smallest = right;
+            }
+
+            if (smallest == i) {
+                break;
+            }
+
+            int temp = heap.get(i);
+            heap.set(i, heap.get(smallest));
+            heap.set(smallest, temp);
+
+            i = smallest;
+        }
+
+        return min;
     }
 
     @Override
     public int peek() {
         // return the minimum
-        return 0;
+        if (isEmpty()) {
+            throw new IndexOutOfBoundsException();
+        }
+        return heap.get(0);
     }
 
     @Override
     public int size() {
-        return 0;
+        return heap.size();
     }
 
     @Override
     public boolean isEmpty() {
-
+        return heap.isEmpty();
     }
 
     @Override
     public String toString() {
         // returns String representation of the internal IntArray
-
         return heap.toString();
     }
 }
