@@ -3,6 +3,7 @@ import java.util.Arrays;
 public class IntArray {
     private int[] array;
     private int size;
+
     public IntArray(){
         // creates an empty array
         size = 0;
@@ -104,5 +105,13 @@ public class IntArray {
         // return String representation of array
         // "[]" empty array
         // "[7, 8, 6]" non-empty array
+    }
+    //for IntArrayDeque
+    public int capacity() {
+        return array.length;
+    }
+
+    public void setPhysical(int index, int value) {
+        array[index] = value;
     }
 }
